@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Studio Lviv — танці, йога та фітнес у Львові</title>
+<meta name="description" content="Vibe Studio — танцювальна студія у Львові на вул. Лемківській, 15а. Групові та індивідуальні заняття, оренда залу.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ---------- Кольори ---------- */
+:root{
+  --black:#0B0B0B; --lime:#8CFF2E; --lime-ink:#173404;
+  --violet:#26215C; --violet-mid:#534AB7; --lav:#EEEDFE; --pink:#ED93B1;
+  --line:rgba(255,255,255,.28); --glass:rgba(255,255,255,.08);
+  --soft:#CECBF6; --grey:#D3D1C7;
+}
+
+/* ---------- Основа ---------- */
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--black);color:#fff;line-height:1.55;font-size:16px}
+h1,h2,h3,.h{font-family:'Unbounded',sans-serif;font-weight:500;line-height:1.15}
+h1{font-size:clamp(34px,6vw,64px);text-transform:uppercase}
+h2{font-size:clamp(22px,3vw,32px);text-transform:uppercase;margin-bottom:22px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:56px 0;scroll-margin-top:68px}
+.violet{background:var(--violet)}
+.light{background:var(--lav);color:var(--violet)}
+.lime{color:var(--lime)}
+.mut{color:var(--soft);font-size:14px}
+.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+[hidden]{display:none!important}
+
+/* ---------- Кнопки, картки, фото ---------- */
+.btn{display:inline-block;background:var(--lime);color:var(--lime-ink);border:1px solid var(--lime);border-radius:999px;padding:13px 22px;font:500 15px 'Manrope',sans-serif;cursor:pointer;text-align:center}
+.btn.ghost{background:transparent;color:var(--lime)}
+.btn.ink{background:var(--violet);border-color:var(--violet);color:#fff}
+.btn.block{display:block;width:100%}
+.btn.sm{padding:10px 14px;font-size:14px}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--glass)}
+.photo{background:var(--violet-mid) center/cover no-repeat;color:var(--lav);font-size:14px;display:flex;align-items:center;justify-content:center;text-align:center}
+
+/* ---------- Шапка ---------- */
+.top{position:sticky;top:0;z-index:10;background:var(--black);border-bottom:1px solid rgba(255,255,255,.12)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:68px}
+/* Логотип: картинка має порожні поля, тому вона обрізається рамкою .logo.
+   Якщо знак зсунутий, підправте margin (перше число: вгору-вниз, останнє: вліво-вправо). */
+.logo{display:block;width:78px;height:58px;overflow:hidden;font-family:'Unbounded',sans-serif;color:var(--lime);font-size:18px}
+.logo span{color:#fff;font-size:11px;letter-spacing:3px;margin-left:6px}
+.logo img{width:92px;height:92px;max-width:none;margin:-21px 0 0 -11px;display:block}
+.logo.text{width:auto;height:auto;overflow:visible}
+nav{display:flex;gap:22px;align-items:center;font-size:15px;color:var(--grey)}
+nav a:hover{color:#fff}
+.burger{display:none;background:none;border:0;color:#fff;font-size:28px;line-height:1;cursor:pointer}
+@media(max-width:860px){
+  .burger{display:block}
+  nav{display:none;position:absolute;top:68px;left:0;right:0;background:var(--black);flex-direction:column;align-items:flex-start;padding:20px;border-bottom:1px solid rgba(255,255,255,.12)}
+  nav.open{display:flex}
+}
+
+/* ---------- Перший екран ---------- */
+.hero{padding:32px 0 28px;background:radial-gradient(ellipse at 85% 35%,rgba(83,74,183,.55),transparent 62%)}
+.hero .wrap{display:grid;gap:26px}
+.hero .photo{border-radius:20px;min-height:240px;order:-1}
+.hero .tag{font-family:'Unbounded',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);text-shadow:0 0 14px rgba(140,255,46,.65);margin-bottom:14px}
+.hero p.lead{color:var(--grey);margin:14px 0 22px;max-width:420px}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap}
+.wave{display:block;width:100%;height:28px;margin-top:30px}
+@media(min-width:861px){
+  .hero{padding:56px 0 36px}
+  .hero .wrap{grid-template-columns:1fr 1fr;align-items:center}
+  .hero .photo{order:1;min-height:400px}
+}
+
+/* ---------- Напрямки і стрічка фото ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--violet-mid);background:#fff;border-radius:999px;padding:8px 16px;font-size:15px}
+.shots{display:grid;grid-auto-flow:column;grid-auto-columns:62%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:26px;padding-bottom:8px}
+.shots figure{border-radius:16px;overflow:hidden;aspect-ratio:3/4;scroll-snap-align:start;background:var(--violet-mid)}
+.shots img{width:100%;height:100%;object-fit:cover;display:block}
+@media(min-width:861px){.shots{grid-auto-columns:calc((100% - 36px)/4)}}
+
+/* ---------- Розклад ---------- */
+.days{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.days button{border:1px solid var(--line);background:none;color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer}
+.days button.on{background:var(--lime);border-color:var(--lime);color:var(--lime-ink);font-weight:500}
+.week{display:grid;gap:12px}
+.col{display:none}
+.col.on{display:block}
+.col h3{display:none;font-size:13px;color:var(--soft);margin-bottom:10px}
+.cls{margin-bottom:10px;padding:14px}
+.cls .t{font-family:'Unbounded',sans-serif;color:var(--lime);font-size:17px}
+.cls .n{font-weight:500;margin-top:6px}
+.cls .btn{margin-top:12px}
+.badge{font-size:12px;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.b-ok{background:#173404;color:#C0DD97}
+.b-few{background:#412402;color:#FAC775}
+.b-full{background:#501313;color:#F7C1C1}
+.b-cap{background:rgba(255,255,255,.1);color:var(--soft)}
+@media(min-width:1000px){
+  .days{display:none}
+  .week{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .col{display:block}
+  .col h3{display:block}
+}
+
+/* ---------- Тренери і відгуки (світлі картки) ---------- */
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.wcard{background:#fff;border-radius:16px;overflow:hidden}
+.wcard .photo{height:260px;background-position:center 20%}
+.wcard .photo.ini{font:500 44px 'Unbounded',sans-serif;color:var(--lime);background:linear-gradient(135deg,var(--violet),var(--violet-mid))}
+.wcard .body{padding:16px}
+.wcard .dirs{color:var(--violet-mid);font-size:14px;margin:4px 0 12px}
+.wcard p.bio{font-size:14px;margin-bottom:14px}
+.review{padding:18px}
+.review p{font-size:15px;margin-bottom:12px}
+.review b{font-weight:500}
+
+/* ---------- Ціни ---------- */
+.prices{display:grid;gap:14px}
+.prices h3{font-size:22px;color:var(--lime);text-transform:uppercase}
+.prices .mut{margin:4px 0 10px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14)}
+.row b{font-family:'Unbounded',sans-serif;font-weight:500;color:var(--lime);white-space:nowrap}
+.row small{display:block;color:var(--soft);font-size:13px}
+.hit{display:inline-block;margin-left:8px;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;background:var(--lime);color:var(--lime-ink);vertical-align:middle}
+details{margin-top:10px;font-size:14px;color:var(--soft)}
+summary{cursor:pointer;padding:6px 0}
+details ul{padding-left:18px}
+details li{margin:4px 0}
+@media(min-width:900px){.prices{grid-template-columns:repeat(3,1fr);align-items:start}}
+
+/* ---------- Сертифікат ---------- */
+.gift{max-width:640px}
+.gift h3{font-size:20px;text-transform:uppercase;margin-bottom:8px}
+.gift h3 span{color:var(--pink)}
+.gift p{color:var(--grey);margin-bottom:16px}
+
+/* ---------- Оренда ---------- */
+.rent{display:grid;gap:24px}
+.rent .photo{border-radius:20px;min-height:220px}
+.rent .acts{display:grid;gap:10px;margin-top:18px}
+@media(min-width:861px){
+  .rent{grid-template-columns:1fr 1fr;align-items:start}
+  .rent .photo{min-height:420px}
+}
+
+/* ---------- Запис ---------- */
+form{max-width:560px}
+.seg{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:8px}
+.seg button{flex:1;background:none;border:0;color:#fff;border-radius:999px;padding:9px 2px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--lime);color:var(--lime-ink);font-weight:500}
+label{display:block;font-size:13px;color:var(--soft);margin:14px 0 6px}
+input,select,textarea{width:100%;background:transparent;border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:#fff;font:inherit;color-scheme:dark}
+select option{color:#000}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--lime);outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.msg{min-height:22px;font-size:14px;margin:12px 0}
+.msg.err{color:#F09595}
+.msg.ok{color:var(--lime)}
+
+/* ---------- Контакти і підвал ---------- */
+.contacts{display:grid;gap:24px}
+.contacts a.line{display:block;margin-bottom:10px}
+.contacts a.line:hover{color:var(--lime)}
+.contacts iframe{width:100%;height:260px;border:0;border-radius:16px}
+@media(min-width:861px){.contacts{grid-template-columns:1fr 1fr;align-items:center}}
+footer{padding:24px 0;color:#888780;font-size:13px;border-top:1px solid rgba(255,255,255,.12)}
+</style>
+</head>
+<body>
+
+<!-- ============ Шапка ============ -->
+<header class="top">
+  <div class="wrap">
+    <a href="#top" class="logo text" id="logo">Vibe<span>STUDIO</span></a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">&#9776;</button>
+    <nav id="nav">
+      <a href="#directions">Напрямки</a>
+      <a href="#schedule">Розклад</a>
+      <a href="#trainers">Тренери</a>
+      <a href="#prices">Ціни</a>
+      <a href="#rent">Оренда</a>
+      <a href="#contacts">Контакти</a>
+      <a href="#booking" class="btn sm">Записатись</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ Перший екран ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="tag">Be the best version of you</p>
+      <h1>Твій <span class="lime">vibe</span><br>у русі</h1>
+      <p class="lead">Танці, йога та фітнес у серці Львова. <span id="heroAddress"></span></p>
+      <div class="acts">
+        <a href="#booking" class="btn">Записатись на пробне</a>
+        <a href="#schedule" class="btn ghost">Розклад</a>
+      </div>
+    </div>
+    <div class="photo" id="heroPhoto">фото залу</div>
+  </div>
+  <div class="wrap">
+    <svg class="wave" viewBox="0 0 620 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 C80 0 140 20 220 10 S300 2 330 12 S300 20 315 10 S460 0 620 10" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
+  </div>
+</section>
+
+<!-- ============ Напрямки ============ -->
+<section class="light" id="directions">
+  <div class="wrap">
+    <h2>Напрямки</h2>
+    <div class="chips" id="chips"></div>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<!-- ============ Розклад ============ -->
+<section id="schedule">
+  <div class="wrap">
+    <h2>Розклад</h2>
+    <div class="days" id="days"></div>
+    <div class="week" id="week"></div>
+  </div>
+</section>
+
+<!-- ============ Тренери ============ -->
+<section class="light" id="trainers">
+  <div class="wrap">
+    <h2>Тренери</h2>
+    <div class="grid" id="trainersGrid"></div>
+  </div>
+</section>
+
+<!-- ============ Ціни ============ -->
+<section class="violet" id="prices">
+  <div class="wrap">
+    <h2>Ціни</h2>
+    <div class="prices" id="pricesGrid"></div>
+  </div>
+</section>
+
+<!-- ============ Відгуки ============ -->
+<section class="light" id="reviews">
+  <div class="wrap">
+    <h2>Відгуки</h2>
+    <div class="grid" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- ============ Сертифікат ============ -->
+<section id="gift">
+  <div class="wrap">
+    <div class="card gift">
+      <h3>Подарунковий <span>сертифікат</span></h3>
+      <p>На разове тренування або абонемент. Для тих, хто давно хотів спробувати танці.</p>
+      <button type="button" class="btn ghost" data-type="gift">Замовити сертифікат</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Оренда ============ -->
+<section class="violet" id="rent">
+  <div class="wrap">
+    <h2 class="lime">Оренда залу</h2>
+    <div class="rent">
+      <div class="photo" id="rentPhoto">фото залу</div>
+      <div>
+        <div id="rentPrices"></div>
+        <p class="mut" style="margin-top:18px">В оренду входять</p>
+        <p id="rentIncludes"></p>
+        <p class="lime" style="margin-top:12px" id="rentNote"></p>
+        <div class="acts">
+          <button type="button" class="btn" data-type="rent">Залишити заявку</button>
+          <a class="btn ghost" id="rentTg" target="_blank" rel="noopener">Написати в Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Запис ============ -->
+<section id="booking">
+  <div class="wrap">
+    <h2>Запис</h2>
+    <form id="form" novalidate>
+      <div class="seg" id="seg">
+        <button type="button" data-type="group" class="on">Група</button>
+        <button type="button" data-type="individual">Індивід.</button>
+        <button type="button" data-type="rent">Оренда</button>
+        <button type="button" data-type="gift">Сертифікат</button>
+      </div>
+
+      <div data-for="group">
+        <label for="fClass">Заняття</label>
+        <select id="fClass"></select>
+      </div>
+
+      <div data-for="individual" hidden>
+        <label for="fTrainer">Тренер</label>
+        <select id="fTrainer"></select>
+        <label for="fFormat">Формат</label>
+        <select id="fFormat">
+          <option>Solo (1 людина)</option>
+          <option>Duo (2 людини)</option>
+          <option>Trio (3 людини)</option>
+        </select>
+        <label for="fWhen">Бажані дні та час</label>
+        <input id="fWhen" type="text" placeholder="Будні після 18:00">
+      </div>
+
+      <div data-for="rent" hidden>
+        <div class="two">
+          <div><label for="fDate">Дата</label><input id="fDate" type="date"></div>
+          <div><label for="fTime">Час початку</label><input id="fTime" type="time"></div>
+        </div>
+        <label for="fHours">Тривалість, годин</label>
+        <input id="fHours" type="number" min="1" max="12" value="1">
+        <label for="fPurpose">Для чого потрібен зал</label>
+        <input id="fPurpose" type="text" placeholder="Репетиція, групове заняття, зйомка">
+      </div>
+
+      <div data-for="gift" hidden>
+        <label for="fGift">Сертифікат на</label>
+        <select id="fGift">
+          <option>Разове тренування</option>
+          <option>Абонемент Classic</option>
+          <option>Абонемент Flex</option>
+          <option>Індивідуальне заняття</option>
+        </select>
+      </div>
+
+      <label for="fName">Ім'я</label>
+      <input id="fName" type="text" autocomplete="name" placeholder="Соломія">
+      <label for="fContact">Телефон або нік у Telegram</label>
+      <input id="fContact" type="text" autocomplete="tel" placeholder="+380 67 123 45 67">
+      <label for="fComment">Коментар (необов'язково)</label>
+      <textarea id="fComment" rows="2"></textarea>
+
+      <p class="msg" id="msg" role="status"></p>
+      <button type="submit" class="btn block">Надіслати заявку</button>
+      <p class="mut" style="margin-top:10px;text-align:center">Адміністратор підтвердить запис у Telegram і надішле реквізити для передоплати</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ Контакти ============ -->
+<section id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <svg class="wave" viewBox="0 0 620 20" preserveAspectRatio="none" aria-hidden="true" style="margin:0 0 32px"><path d="M0 12 C80 0 140 20 220 10 S300 2 330 12 S300 20 315 10 S460 0 620 10" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
+    <div class="contacts">
+      <div>
+        <h2>Контакти</h2>
+        <a class="line" id="cAddress" target="_blank" rel="noopener"></a>
+        <a class="line" id="cInsta" target="_blank" rel="noopener">Instagram: vibe.studio.lviv</a>
+        <a class="line" id="cTg" target="_blank" rel="noopener">Telegram студії</a>
+      </div>
+      <iframe id="map" loading="lazy" title="Vibe Studio на карті"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">© <span id="year"></span> Vibe Studio Lviv</div></footer>
+
+<script>
+/* =====================================================================
+   НАЛАШТУВАННЯ. Усе, що змінюється на сайті, лежить тут.
+   ===================================================================== */
+const CONFIG = {
+
+  /* ---------- Контакти і заявки ---------- */
+  telegram: "MyVeVaccount",  // ТЕСТ: особистий акаунт розробника. Перед запуском замінити на нік студії (без @)
+  formEndpoint: "",          // адреса Google Apps Script, який пересилає заявки боту
+  instagram: "https://www.instagram.com/vibe.studio.lviv/",
+  address: "Львів, вул. Лемківська, 15а",
+
+  /* ---------- Місця в групах ---------- */
+  showSpots: true,       // показувати розмір групи в розкладі
+  liveSpots: false,      // true = показувати вільні місця (limit - taken). Вмикати, коли taken оновлюється з таблиці
+
+  /* ---------- Логотип і фото ---------- */
+  logo: "img/logo.png",  // логотип у шапці. Порожній рядок = текстовий напис «Vibe STUDIO»
+  images: {
+    hero: "img/hall-mats.jpg",
+    rent: "img/hall.jpg",
+    // Стрічка фото під напрямками. Якщо файлу немає, фото не показується.
+    gallery: [
+      { src: "img/jumping-1.jpg",   alt: "Тренування з джампінг-фітнесу" },
+      { src: "img/heels.jpg",       alt: "Заняття High Heels" },
+      { src: "img/power-fit.jpg",   alt: "Тренування Power Fit" },
+      { src: "img/equipment.jpg",   alt: "Гантелі, гиря та фітнес-резинка" },
+      { src: "img/jumping-2.jpg",   alt: "Батут для джампінг-фітнесу" },
+      { src: "img/twerk.jpg",       alt: "Заняття Twerk" },
+      { src: "img/kettlebells.jpg", alt: "Гирі 8, 12 і 16 кг" }
+    ]
+  },
+
+  /* ---------- Напрямки ---------- */
+  directions: ["High Heels", "Twerk", "Contemporary", "Belly Dance", "Hip-Hop",
+               "Stretching", "Yoga", "Power Fit", "Jumping Fitness", "Акробатика 5–7 років"],
+
+  /* ---------- Розклад ----------
+     day: 0 = понеділок ... 6 = неділя.
+     limit = місць у групі (0 = не показувати), taken = зайнято. */
+  schedule: [
+    // Вівторок
+    { day: 1, time: "10:00", name: "Jumping Fitness",   trainer: "Софія Сало",      limit: 6,  taken: 0 },
+    { day: 1, time: "18:00", name: "Jumping Fitness",   trainer: "Софія Сало",      limit: 6,  taken: 0 },
+    { day: 1, time: "18:00", name: "Hip-Hop Freestyle", trainer: "Любомир Дяченко", limit: 0,  taken: 0 },
+    { day: 1, time: "20:00", name: "Power Fit",         trainer: "Настя Гринько",   limit: 10, taken: 0 },
+    { day: 1, time: "21:00", name: "Twerk",             trainer: "Марія Кохан",     limit: 10, taken: 0 },
+    // Середа
+    { day: 2, time: "20:00", name: "High Heels",        trainer: "Марія Кохан",     limit: 10, taken: 0 },
+    // Четвер
+    { day: 3, time: "10:00", name: "Jumping Fitness",   trainer: "Софія Сало",      limit: 6,  taken: 0 },
+    { day: 3, time: "18:00", name: "Jumping Fitness",   trainer: "Софія Сало",      limit: 6,  taken: 0 },
+    { day: 3, time: "18:00", name: "Hip-Hop Freestyle", trainer: "Любомир Дяченко", limit: 0,  taken: 0 },
+    { day: 3, time: "20:00", name: "Power Fit",         trainer: "Настя Гринько",   limit: 10, taken: 0 },
+    { day: 3, time: "21:00", name: "Twerk",             trainer: "Марія Кохан",     limit: 10, taken: 0 },
+    // П'ятниця
+    { day: 4, time: "20:00", name: "High Heels",        trainer: "Марія Кохан",     limit: 10, taken: 0 }
+  ],
+
+  /* ---------- Тренери ----------
+     bio і photo можна лишити порожніми: опис сховається, замість фото будуть ініціали.
+     Порожній список ховає секцію і пункт меню. */
+  trainers: [
+    { name: "Марія Кохан",     dirs: "High Heels, Twerk", bio: "", photo: "" },
+    { name: "Настя Гринько",   dirs: "Power Fit",         bio: "", photo: "" },
+    { name: "Софія Сало",      dirs: "Jumping Fitness",   bio: "", photo: "" },
+    { name: "Любомир Дяченко", dirs: "Hip-Hop Freestyle", bio: "", photo: "" }
+  ],
+
+  /* ---------- Ціни ----------
+     Рядок: [назва, ціна, примітка, позначка]. Позначка "хіт" = беруть найчастіше. */
+  prices: [
+    { title: "Classic", sub: "Одна група, 4 тижні",
+      items: [
+        ["8 тренувань", "1700 ₴", "", "хіт"],
+        ["12 тренувань", "2000 ₴"],
+        ["Разове / пробне", "350 ₴", "Передоплата 350 грн"]
+      ],
+      rules: [
+        "Доступ в одну групу",
+        "Заморозки немає",
+        "Відміна та перенесення недоступні",
+        "Якщо в групі три тренування на тиждень, під час активації ви обираєте два дні. Змінити їх після активації неможливо"
+      ] },
+    { title: "Flex", sub: "Усі групи, 1 місяць",
+      items: [
+        ["4 тренування", "1200 ₴", "", "хіт"],
+        ["8 тренувань", "2000 ₴"],
+        ["12 тренувань", "2400 ₴"],
+        ["16 тренувань", "2800 ₴"]
+      ],
+      rules: [
+        "Доступ у всі групи",
+        "Відміна та перенесення за 4 години до початку заняття",
+        "4 і 8 тренувань: заморозки немає",
+        "12 і 16 тренувань: заморозка до 14 днів за додаткову плату 200 грн"
+      ] },
+    { title: "Індивідуальні", sub: "1 година",
+      items: [
+        ["Solo", "750 ₴", "для 1 людини"],
+        ["Duo", "1200 ₴", "для 2 людей"],
+        ["Trio", "1500 ₴", "для 3 людей"]
+      ],
+      rules: [
+        "Обов'язкова передоплата 600 грн",
+        "Перенесення за 24 години до заняття",
+        "Якщо відмінити або перенести пізніше, передоплата згорає"
+      ] }
+  ],
+
+  /* ---------- Оренда ---------- */
+  rent: {
+    items: [
+      ["1 година", "550 ₴"],
+      ["Довготривала", "500 ₴", "для групових занять"],
+      ["Довготривала", "300 ₴", "для індивідуальних занять"]
+    ],
+    includes: "Карімати, колонка, підсвітка, гантелі, гирі, подушки, резинки, блоки для розтяжки, степи",
+    note: "Під час відключень студія працює"
+  },
+
+  /* ---------- Відгуки ----------
+     Формат: { text: "...", name: "Ім'я", dir: "Напрямок" }. Порожній список ховає секцію. */
+  reviews: []
+};
+
+/* =====================================================================
+   ДОПОМІЖНІ ФУНКЦІЇ
+   ===================================================================== */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const DAYS   = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"];
+const DAYS_S = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
+
+const tgLink = text => CONFIG.telegram
+  ? "https://t.me/" + CONFIG.telegram + (text ? "?text=" + encodeURIComponent(text) : "")
+  : "";
+
+const rows = items => items.map(i =>
+  `<div class="row"><span>${i[0]}${i[3] ? `<span class="hit">${i[3]}</span>` : ""}${i[2] ? `<small>${i[2]}</small>` : ""}</span><b>${i[1]}</b></div>`
+).join("");
+
+const setPhoto = (el, src) => { if (src) { el.style.backgroundImage = `url("${src}")`; el.textContent = ""; } };
+const clsLabel = c => `${c.name}, ${DAYS_S[c.day]} ${c.time}`;
+const initials = name => name.split(" ").map(w => w[0]).join("").slice(0, 2);
+const isFull   = c => CONFIG.showSpots && CONFIG.liveSpots && c.limit > 0 && c.limit - c.taken <= 0;
+
+function badge(c) {
+  if (!CONFIG.showSpots || !c.limit) return "";
+  if (!CONFIG.liveSpots) return `<span class="badge b-cap">до ${c.limit} людей</span>`;
+  const free = c.limit - c.taken;
+  if (free <= 0) return '<span class="badge b-full">група повна</span>';
+  if (free <= 2) return `<span class="badge b-few">лишилось ${free}</span>`;
+  return `<span class="badge b-ok">вільно ${free}</span>`;
+}
+
+/* =====================================================================
+   ВИВІД СТОРІНКИ
+   ===================================================================== */
+function render() {
+  // Шапка і перший екран
+  if (CONFIG.logo) {
+    $("#logo").classList.remove("text");
+    $("#logo").innerHTML = `<img src="${CONFIG.logo}" alt="Vibe Studio">`;
+  }
+  $("#heroAddress").textContent = CONFIG.address.replace("Львів, ", "").replace(/^./, m => m.toUpperCase());
+  setPhoto($("#heroPhoto"), CONFIG.images.hero);
+  setPhoto($("#rentPhoto"), CONFIG.images.rent || CONFIG.images.hero);
+
+  // Напрямки і стрічка фото
+  $("#chips").innerHTML = CONFIG.directions.map(d => `<span class="chip">${d}</span>`).join("");
+  const shots = CONFIG.images.gallery || [];
+  if (shots.length) {
+    $("#shots").innerHTML = shots.map(g =>
+      `<figure><img src="${g.src}" alt="${g.alt}" loading="lazy" onerror="this.parentNode.remove()"></figure>`
+    ).join("");
+  } else $("#shots").hidden = true;
+
+  // Розклад
+  const used   = [...new Set(CONFIG.schedule.map(c => c.day))].sort((a, b) => a - b);
+  const today  = (new Date().getDay() + 6) % 7;
+  const active = used.includes(today) ? today : used[0];
+  $("#days").innerHTML = used.map(d =>
+    `<button type="button" data-d="${d}" class="${d === active ? "on" : ""}">${DAYS_S[d]}</button>`
+  ).join("");
+  $("#week").innerHTML = used.map(d => {
+    const list = CONFIG.schedule.filter(c => c.day === d).sort((a, b) => a.time.localeCompare(b.time));
+    return `<div class="col ${d === active ? "on" : ""}" data-d="${d}"><h3>${DAYS[d]}</h3>` + list.map(c => {
+      const full = isFull(c);
+      return `<div class="card cls"><div class="between"><span class="t">${c.time}</span>${badge(c)}</div>
+        <p class="n">${c.name}</p><p class="mut">${c.trainer || "Тренер уточнюється"}</p>
+        <button type="button" class="btn sm block ${full ? "ghost" : ""}" data-book="${clsLabel(c)}">${full ? "У лист очікування" : "Записатись"}</button></div>`;
+    }).join("") + "</div>";
+  }).join("");
+
+  // Тренери
+  $("#trainersGrid").innerHTML = CONFIG.trainers.map((t, i) => `<div class="wcard">
+    <div class="photo ${t.photo ? "" : "ini"}" ${t.photo ? `style="background-image:url('${t.photo}')"` : ""}>${t.photo ? "" : initials(t.name)}</div>
+    <div class="body"><h3 style="font-size:16px">${t.name}</h3><p class="dirs">${t.dirs}</p>${t.bio ? `<p class="bio">${t.bio}</p>` : ""}
+    <button type="button" class="btn ink sm block" data-trainer="${i}">Індивідуальне заняття</button></div></div>`).join("");
+  if (!CONFIG.trainers.length) {
+    $("#trainers").hidden = true;
+    $('#nav a[href="#trainers"]').hidden = true;
+  }
+
+  // Ціни
+  $("#pricesGrid").innerHTML = CONFIG.prices.map(p => `<div class="card"><h3>${p.title}</h3><p class="mut">${p.sub}</p>${rows(p.items)}
+    <details><summary>Умови</summary><ul>${p.rules.map(r => `<li>${r}</li>`).join("")}</ul></details></div>`).join("");
+
+  // Відгуки
+  if (CONFIG.reviews.length) {
+    $("#reviewsGrid").innerHTML = CONFIG.reviews.map(r =>
+      `<div class="wcard review"><p>${r.text}</p><b>${r.name}</b><div class="dirs" style="margin:0">${r.dir}</div></div>`
+    ).join("");
+  } else $("#reviews").hidden = true;
+
+  // Оренда
+  $("#rentPrices").innerHTML = rows(CONFIG.rent.items);
+  $("#rentIncludes").textContent = CONFIG.rent.includes;
+  $("#rentNote").textContent = CONFIG.rent.note;
+
+  // Кнопки Telegram
+  const tg = tgLink("Добрий день! Цікавить оренда залу.");
+  if (tg) { $("#rentTg").href = tg; $("#cTg").href = tgLink(""); }
+  else { $("#rentTg").hidden = true; $("#cTg").hidden = true; }
+
+  // Списки у формі
+  $("#fClass").innerHTML = '<option value="">Оберіть заняття</option><option>Пробне заняття (підкажіть, що обрати)</option>' +
+    CONFIG.schedule.map(c => `<option>${clsLabel(c)}</option>`).join("");
+  $("#fTrainer").innerHTML = '<option>Будь-який тренер</option>' +
+    CONFIG.trainers.map(t => `<option>${t.name} (${t.dirs})</option>`).join("");
+
+  // Контакти і підвал
+  const q = encodeURIComponent("Vibe Studio, " + CONFIG.address);
+  $("#cAddress").textContent = CONFIG.address;
+  $("#cAddress").href = "https://www.google.com/maps/search/?api=1&query=" + q;
+  $("#cInsta").href = CONFIG.instagram;
+  $("#map").src = "https://www.google.com/maps?q=" + q + "&output=embed";
+  $("#year").textContent = new Date().getFullYear();
+}
+
+/* =====================================================================
+   ФОРМА ЗАПИСУ
+   ===================================================================== */
+let type = "group";
+
+function setType(t) {
+  type = t;
+  $$("#seg button").forEach(b => b.classList.toggle("on", b.dataset.type === t));
+  $$("#form [data-for]").forEach(d => d.hidden = d.dataset.for !== t);
+  say("");
+}
+function say(text, kind) { const m = $("#msg"); m.textContent = text; m.className = "msg " + (kind || ""); }
+function goBooking() { $("#booking").scrollIntoView(); }
+
+// Усі кліки на сторінці
+document.addEventListener("click", e => {
+  const b = e.target.closest("button, a");
+  if (!b) return;
+  if (b.id === "burger") {
+    const open = $("#nav").classList.toggle("open");
+    b.setAttribute("aria-expanded", open);
+  } else if (b.closest("#nav")) {
+    $("#nav").classList.remove("open");
+  } else if (b.closest("#days")) {
+    $$("#days button").forEach(x => x.classList.toggle("on", x === b));
+    $$("#week .col").forEach(c => c.classList.toggle("on", c.dataset.d === b.dataset.d));
+  } else if (b.dataset.book) {
+    setType("group"); $("#fClass").value = b.dataset.book; goBooking();
+  } else if (b.dataset.trainer !== undefined) {
+    setType("individual"); $("#fTrainer").selectedIndex = +b.dataset.trainer + 1; goBooking();
+  } else if (b.dataset.type) {
+    setType(b.dataset.type);
+    if (!b.closest("#seg")) goBooking();
+  }
+});
+
+$("#form").addEventListener("input", () => say(""));
+
+// Надсилання заявки
+$("#form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = id => $("#" + id).value.trim();
+  const lines = [];
+
+  if (type === "group") {
+    if (!v("fClass")) return say("Оберіть заняття.", "err");
+    lines.push("Заявка: групове заняття", "Заняття: " + v("fClass"));
+  } else if (type === "individual") {
+    if (!v("fWhen")) return say("Вкажіть бажані дні та час.", "err");
+    lines.push("Заявка: індивідуальне заняття", "Тренер: " + v("fTrainer"), "Формат: " + v("fFormat"), "Коли зручно: " + v("fWhen"));
+  } else if (type === "rent") {
+    if (!v("fDate") || !v("fTime")) return say("Вкажіть дату і час початку.", "err");
+    lines.push("Заявка: оренда залу", "Дата: " + v("fDate"), "Час: " + v("fTime"),
+               "Тривалість: " + (v("fHours") || 1) + " год", "Мета: " + (v("fPurpose") || "не вказано"));
+  } else {
+    lines.push("Заявка: подарунковий сертифікат", "На що: " + v("fGift"));
+  }
+
+  if (!v("fName")) return say("Вкажіть ім'я.", "err");
+  if (v("fContact").length < 5) return say("Вкажіть телефон або нік у Telegram.", "err");
+  lines.push("Ім'я: " + v("fName"), "Контакт: " + v("fContact"));
+  if (v("fComment")) lines.push("Коментар: " + v("fComment"));
+  const text = lines.join("\n");
+
+  if (CONFIG.formEndpoint) {
+    try {
+      await fetch(CONFIG.formEndpoint, { method: "POST", mode: "no-cors", body: JSON.stringify({ type, text }) });
+      say("Заявку надіслано. Адміністратор напише вам у Telegram.", "ok");
+      $("#form").reset(); setType(type);
+    } catch (err) {
+      say("Не вдалося надіслати. Спробуйте ще раз або напишіть нам в Instagram.", "err");
+    }
+  } else if (CONFIG.telegram) {
+    window.open(tgLink(text), "_blank", "noopener");
+    say("Відкрили Telegram із готовим повідомленням. Натисніть «Надіслати» там.", "ok");
+  } else {
+    say("Надсилання заявок ще не підключено. Напишіть нам в Instagram.", "err");
+  }
+});
+
+render();
+</script>
+</body>
+</html>
