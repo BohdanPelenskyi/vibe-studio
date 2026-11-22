@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Статистика та рентабельність — Vibe Studio Lviv</title>
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0B0B0B; --lime:#8CFF2E; --lime-ink:#173404;
+  --violet:#26215C; --violet-mid:#534AB7; --lav:#EEEDFE; --pink:#ED93B1;
+  --line:rgba(255,255,255,.28); --glass:rgba(255,255,255,.08);
+  --soft:#CECBF6; --grey:#D3D1C7; --red:#F09595;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--black);color:#fff;line-height:1.55;font-size:16px}
+h1,h2,h3{font-family:'Unbounded',sans-serif;font-weight:500;line-height:1.15}
+h1{font-size:clamp(26px,4.5vw,44px);text-transform:uppercase}
+h2{font-size:clamp(18px,2.4vw,24px);text-transform:uppercase;margin-bottom:18px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:36px 0;scroll-margin-top:68px}
+.lime{color:var(--lime)} .red{color:var(--red)}
+.mut{color:var(--soft);font-size:14px}
+[hidden]{display:none!important}
+.btn{display:inline-block;background:var(--lime);color:var(--lime-ink);border:1px solid var(--lime);border-radius:999px;padding:10px 18px;font:500 14px 'Manrope',sans-serif;cursor:pointer;text-align:center}
+.btn.ghost{background:transparent;color:var(--lime)}
+.btn.warn{background:transparent;color:var(--red);border-color:var(--red)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--glass)}
+
+.top{position:sticky;top:0;z-index:10;background:var(--black);border-bottom:1px solid rgba(255,255,255,.12)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:68px;gap:12px}
+.top .acts{display:flex;gap:10px}
+.logo{display:block;width:78px;height:58px;overflow:hidden;font-family:'Unbounded',sans-serif;color:var(--lime);font-size:18px}
+.logo span{color:#fff;font-size:11px;letter-spacing:3px;margin-left:6px}
+.logo img{width:92px;height:92px;max-width:none;margin:-21px 0 0 -11px;display:block}
+.logo.text{width:auto;height:auto;overflow:visible}
+
+.head{padding:36px 0 8px;background:radial-gradient(ellipse at 85% 20%,rgba(83,74,183,.5),transparent 60%)}
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px}
+.bar label{font-size:13px;color:var(--soft)}
+select,input{background:transparent;border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:#fff;font:inherit;color-scheme:dark}
+select option{color:#000}
+input:focus,select:focus{outline:2px solid var(--lime);outline-offset:1px}
+
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.kpi .l{font-size:13px;color:var(--soft)}
+.kpi .v{font-family:'Unbounded',sans-serif;font-size:clamp(18px,2.2vw,24px);margin:6px 0 2px;white-space:nowrap}
+.kpi .s{font-size:12px;color:var(--soft)}
+
+.two{display:grid;gap:14px}
+@media(min-width:900px){.two{grid-template-columns:1fr 1fr}}
+.scroll{overflow-x:auto}
+.scroll svg{display:block;min-width:560px;width:100%;height:auto}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--soft);margin-bottom:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+svg text{font-family:'Manrope',sans-serif;font-size:11px;fill:#CECBF6}
+.col{cursor:pointer}
+.col:hover .hl,.col.sel .hl{fill:rgba(255,255,255,.1)}
+
+.item{margin-bottom:12px}
+.item .top2{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:4px}
+.item .top2 b{font-weight:500;white-space:nowrap}
+.track{height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.fill{height:100%;border-radius:99px;background:var(--lime)}
+.fill.v{background:var(--violet-mid)} .fill.p{background:var(--pink)}
+.tot{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.2);padding-top:10px;margin-top:6px;font-weight:500}
+
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th,td{padding:10px 8px;text-align:right;border-top:1px solid rgba(255,255,255,.14);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--soft);font-weight:500;font-size:13px;border-top:0}
+tr.sel td{background:rgba(140,255,46,.08)}
+tfoot td{font-weight:500;border-top:1px solid rgba(255,255,255,.35)}
+.empty{text-align:center;padding:40px 18px;color:var(--soft)}
+
+/* Форма внесення даних */
+.fgrid{display:grid;gap:0 12px;grid-template-columns:1fr 1fr}
+@media(min-width:700px){.fgrid{grid-template-columns:repeat(3,1fr)}}
+.fgrid label,.fl{display:block;font-size:13px;color:var(--soft);margin:14px 0 6px}
+.fgrid input{width:100%}
+h3.sub{font-size:14px;color:var(--lime);text-transform:uppercase;margin-top:22px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.msg{min-height:22px;font-size:14px;margin-top:12px;color:var(--lime)}
+.msg.err{color:var(--red)}
+details.set{margin-top:18px}
+summary{cursor:pointer;color:var(--soft);font-size:14px;padding:6px 0}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14)}
+footer{padding:24px 0;color:#888780;font-size:13px;border-top:1px solid rgba(255,255,255,.12)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="logo text" id="logo">Vibe<span>STUDIO</span></a>
+    <div class="acts">
+      <a href="#entry" class="btn sm">Внести дані</a>
+      <a href="index.html" class="btn ghost">← На сайт</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="head">
+  <div class="wrap">
+    <h1>Рентабельність <span class="lime">студії</span></h1>
+    <div class="bar">
+      <label for="month">Місяць</label>
+      <select id="month"></select>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+
+<section>
+  <div class="wrap"><div class="kpis" id="kpis"></div></div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Динаміка</h2>
+    <div class="card">
+      <div class="legend">
+        <span><i style="background:var(--lime)"></i>Дохід</span>
+        <span><i style="background:var(--violet-mid)"></i>Витрати</span>
+      </div>
+      <div class="scroll"><div id="chartMain"></div></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <div class="legend">
+        <span><i style="background:var(--lime)"></i>Прибуток</span>
+        <span><i style="background:var(--pink)"></i>Збиток</span>
+      </div>
+      <div class="scroll"><div id="chartProfit"></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 id="structTitle">Структура</h2>
+    <div class="two">
+      <div class="card"><h3 style="font-size:15px;margin-bottom:16px">Доходи</h3><div id="incomeList"></div></div>
+      <div class="card"><h3 style="font-size:15px;margin-bottom:16px">Витрати</h3><div id="expList"></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Беззбитковість</h2>
+    <div class="card" id="breakeven"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Підсумок по місяцях</h2>
+    <div class="card scroll"><table id="table"></table></div>
+  </div>
+</section>
+
+</div>
+
+<div class="wrap" id="emptyBox" hidden>
+  <div class="card empty">Даних поки немає. Внесіть перший місяць нижче.</div>
+</div>
+
+<!-- Внесення даних -->
+<section id="entry">
+  <div class="wrap">
+    <h2>Внести дані</h2>
+    <form class="card" id="form" novalidate>
+      <label class="fl" for="fMonth">Місяць</label>
+      <input id="fMonth" type="month" style="max-width:240px">
+
+      <h3 class="sub">Доходи, ₴</h3>
+      <div class="fgrid" id="incFields"></div>
+
+      <h3 class="sub">Витрати, ₴</h3>
+      <div class="fgrid" id="expFields"></div>
+
+      <details class="set">
+        <summary>Параметри розрахунку</summary>
+        <div class="fgrid">
+          <div><label for="sGroup">Частка тренера, групові, %</label><input id="sGroup" type="number" min="0" max="100" step="1"></div>
+          <div><label for="sIndiv">Частка тренера, індивід., %</label><input id="sIndiv" type="number" min="0" max="100" step="1"></div>
+          <div><label for="sTax">Податок з доходу, %</label><input id="sTax" type="number" min="0" max="100" step="0.5"></div>
+        </div>
+      </details>
+
+      <div class="btns">
+        <button type="submit" class="btn">Зберегти місяць</button>
+        <button type="button" class="btn warn" id="btnDelete" hidden>Видалити місяць</button>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+
+      <div class="tools">
+        <button type="button" class="btn ghost" id="btnExport">Скачати копію (JSON)</button>
+        <button type="button" class="btn ghost" id="btnImport">Завантажити з файлу</button>
+        <button type="button" class="btn warn" id="btnClear">Очистити все</button>
+        <input type="file" id="fileIn" accept="application/json,.json" hidden>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">© <span id="year"></span> Vibe Studio Lviv</div></footer>
+
+<script>
+/* =====================================================================
+   НАЛАШТУВАННЯ
+   ===================================================================== */
+const LOGO = "img/logo.png";            // порожній рядок = текстовий напис
+const STORE_KEY = "vibe-studio-stats-v1";
+const SHOW_MONTHS = 12;                 // скільки останніх місяців показувати на графіках
+
+const INCOME = ["Абонементи Classic", "Абонементи Flex", "Разові та пробні", "Індивідуальні", "Оренда залу", "Сертифікати"];
+const GROUP_INCOME = [0, 1, 2];         // індекси групових доходів (для розрахунку частки тренера)
+const INDIV_INCOME = 3;
+const EXPENSE = [["rent", "Оренда приміщення"], ["admin", "Адміністратор"], ["utilities", "Комунальні"],
+                 ["marketing", "Маркетинг"], ["supplies", "Інвентар і дрібні витрати"]];
+
+const DEFAULT_SETTINGS = { group: 32, indiv: 50, tax: 5 };
+
+/* Початкові дані, поки в браузері нічого не збережено */
+function seed() {
+  const inc = [
+    [22000,26000,28000,31000,33000,34000,30000,24000,22000,36000,41000,43000],
+    [14000,18000,20000,23000,25000,26000,22000,16000,14000,27000,31000,33000],
+    [7000,8000,8500,9000,9500,9500,8500,7000,6500,10000,11500,12000],
+    [9000,10000,11000,12000,12500,13000,11000,8000,7500,13500,15000,16000],
+    [6000,7000,7500,8000,8500,9000,7500,5000,5000,9000,10000,11000],
+    [8000,2000,4500,6500,1500,1500,1000,1000,1000,1500,2000,3500]
+  ];
+  const util = [6500,6500,6000,5000,4000,3500,3500,3500,3500,4500,5500,6000];
+  const mark = [5000,5000,5000,6000,5000,5000,4000,3500,4500,7000,7500,7500];
+  const supp = [2000,1500,2000,2500,2000,2000,1500,1500,2500,3000,2500,2500];
+  const keys = ["2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"];
+  return keys.map((key, i) => ({
+    key, inc: inc.map(r => r[i]),
+    rent: 25000, admin: 9000, utilities: util[i], marketing: mark[i], supplies: supp[i]
+  }));
+}
+
+/* =====================================================================
+   ЗБЕРЕЖЕННЯ
+   ===================================================================== */
+let state = { records: [], settings: { ...DEFAULT_SETTINGS } };
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) { state = normalize(JSON.parse(raw)); return; }
+  } catch (e) {}
+  state = { records: seed(), settings: { ...DEFAULT_SETTINGS } };
+}
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); return true; }
+  catch (e) { return false; }
+}
+function normalize(d) {
+  const num = v => Math.max(0, Number(v) || 0);
+  const records = (Array.isArray(d.records) ? d.records : [])
+    .filter(r => r && /^\d{4}-(0[1-9]|1[0-2])$/.test(r.key))
+    .map(r => ({
+      key: r.key,
+      inc: INCOME.map((_, i) => num(r.inc && r.inc[i])),
+      rent: num(r.rent), admin: num(r.admin), utilities: num(r.utilities),
+      marketing: num(r.marketing), supplies: num(r.supplies)
+    }))
+    .sort((a, b) => a.key.localeCompare(b.key));
+  const s = d.settings || {};
+  return { records, settings: {
+    group: isFinite(s.group) ? +s.group : DEFAULT_SETTINGS.group,
+    indiv: isFinite(s.indiv) ? +s.indiv : DEFAULT_SETTINGS.indiv,
+    tax:   isFinite(s.tax)   ? +s.tax   : DEFAULT_SETTINGS.tax
+  } };
+}
+
+/* =====================================================================
+   РОЗРАХУНКИ
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const fmt = n => Math.round(n).toLocaleString("uk-UA").replace(/ /g, " ") + " ₴";
+const pct = n => (Math.round(n * 10) / 10).toString().replace(".", ",") + "%";
+const MON = ["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер","Вер","Жов","Лис","Гру"];
+const labelOf = key => MON[+key.slice(5) - 1] + " " + key.slice(2, 4);
+
+function compute(r) {
+  const S = state.settings;
+  const revenue = r.inc.reduce((s, v) => s + v, 0);
+  const groupRev = GROUP_INCOME.reduce((s, i) => s + r.inc[i], 0);
+  const exp = {
+    "Оренда приміщення": r.rent,
+    "Тренери": groupRev * S.group / 100 + r.inc[INDIV_INCOME] * S.indiv / 100,
+    "Адміністратор": r.admin,
+    "Комунальні": r.utilities,
+    "Маркетинг": r.marketing,
+    "Інвентар і дрібні витрати": r.supplies,
+    "Податки": revenue * S.tax / 100
+  };
+  const expenses = Object.values(exp).reduce((s, v) => s + v, 0);
+  const profit = revenue - expenses;
+  const variable = exp["Тренери"] + exp["Податки"];
+  const fixed = expenses - variable;
+  const varRatio = revenue ? variable / revenue : 0;
+  const inc = {}; INCOME.forEach((k, i) => inc[k] = r.inc[i]);
+  return { key: r.key, label: labelOf(r.key), inc, exp, revenue, expenses, profit,
+           margin: revenue ? profit / revenue * 100 : 0, fixed, beRevenue: fixed / (1 - varRatio), rent: r.rent };
+}
+
+let M = [];       // розраховані місяці (останні SHOW_MONTHS)
+let sel = 0;      // індекс обраного місяця в M
+
+function recalc(keepKey) {
+  M = state.records.slice(-SHOW_MONTHS).map(compute);
+  const i = keepKey ? M.findIndex(m => m.key === keepKey) : -1;
+  sel = i >= 0 ? i : M.length - 1;
+}
+
+/* =====================================================================
+   ВИВІД
+   ===================================================================== */
+function kpis() {
+  const m = M[sel];
+  const rentShare = m.revenue ? m.rent / m.revenue * 100 : 0;
+  const cards = [
+    ["Дохід", fmt(m.revenue), "за місяць", ""],
+    ["Витрати", fmt(m.expenses), "разом", ""],
+    ["Чистий прибуток", fmt(m.profit), m.profit >= 0 ? "студія в плюсі" : "студія в мінусі", m.profit >= 0 ? "lime" : "red"],
+    ["Рентабельність", pct(m.margin), "прибуток / дохід", m.margin >= 0 ? "lime" : "red"],
+    ["Оренда в доході", pct(rentShare), fmt(m.rent) + " на місяць", ""],
+    ["Точка беззбитковості", isFinite(m.beRevenue) ? fmt(m.beRevenue) : "—", "дохід, щоб вийти в нуль", ""]
+  ];
+  $("#kpis").innerHTML = cards.map(c =>
+    `<div class="card kpi"><div class="l">${c[0]}</div><div class="v ${c[3]}">${c[1]}</div><div class="s">${c[2]}</div></div>`).join("");
+}
+
+const niceMax = (v, step) => Math.ceil(v / step) * step;
+const stepFor = range => [5000, 10000, 20000, 25000, 50000, 100000, 200000].find(s => range / s <= 6) || 500000;
+
+function chartMain() {
+  const n = M.length, W = 720, H = 280, L = 52, B = 28, T = 10, R = 8;
+  const peak = Math.max(...M.map(m => Math.max(m.revenue, m.expenses)), 1);
+  const step = stepFor(peak), max = niceMax(peak, step);
+  const gw = (W - L - R) / Math.max(n, 6), bw = Math.min(18, gw / 2 - 4);
+  const y = v => T + (H - T - B) * (1 - v / max);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Дохід і витрати по місяцях">`;
+  for (let v = 0; v <= max; v += step)
+    s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,.12)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v / 1000}k</text>`;
+  M.forEach((m, i) => {
+    const x0 = L + i * gw, cx = x0 + gw / 2;
+    s += `<g class="col ${i === sel ? "sel" : ""}" data-i="${i}">
+      <rect class="hl" x="${x0 + 2}" y="${T}" width="${gw - 4}" height="${H - T - B}" rx="6" fill="transparent"/>
+      <rect x="${cx - bw - 1}" y="${y(m.revenue)}" width="${bw}" height="${y(0) - y(m.revenue)}" rx="3" fill="#8CFF2E"><title>${m.label}: дохід ${fmt(m.revenue)}</title></rect>
+      <rect x="${cx + 1}" y="${y(m.expenses)}" width="${bw}" height="${y(0) - y(m.expenses)}" rx="3" fill="#534AB7"><title>${m.label}: витрати ${fmt(m.expenses)}</title></rect>
+      <text x="${cx}" y="${H - 8}" text-anchor="middle">${m.label}</text></g>`;
+  });
+  $("#chartMain").innerHTML = s + "</svg>";
+}
+
+function chartProfit() {
+  const n = M.length, W = 720, H = 200, L = 52, B = 28, T = 14, R = 8;
+  const pMax = Math.max(...M.map(m => m.profit), 0), pMin = Math.min(...M.map(m => m.profit), 0);
+  const step = stepFor(Math.max(pMax - pMin, 1) * 1.2);
+  const hi = niceMax(pMax, step) || step, lo = -niceMax(-pMin, step);
+  const y = v => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const gw = (W - L - R) / Math.max(n, 6), bw = Math.min(30, gw - 10);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Прибуток по місяцях">`;
+  for (let v = lo; v <= hi; v += step)
+    s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="${v === 0 ? "rgba(255,255,255,.45)" : "rgba(255,255,255,.12)"}"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v / 1000}k</text>`;
+  M.forEach((m, i) => {
+    const x0 = L + i * gw, cx = x0 + gw / 2, pos = m.profit >= 0;
+    const top = pos ? y(m.profit) : y(0), h = Math.abs(y(m.profit) - y(0));
+    s += `<g class="col ${i === sel ? "sel" : ""}" data-i="${i}">
+      <rect class="hl" x="${x0 + 2}" y="${T}" width="${gw - 4}" height="${H - T - B}" rx="6" fill="transparent"/>
+      <rect x="${cx - bw / 2}" y="${top}" width="${bw}" height="${Math.max(h, 1)}" rx="3" fill="${pos ? "#8CFF2E" : "#ED93B1"}"><title>${m.label}: ${fmt(m.profit)}</title></rect>
+      <text x="${cx}" y="${H - 8}" text-anchor="middle">${m.label}</text></g>`;
+  });
+  $("#chartProfit").innerHTML = s + "</svg>";
+}
+
+function bars(obj, total, cls, highlight) {
+  return Object.entries(obj).sort((a, b) => b[1] - a[1]).map(([k, v]) => {
+    const p = total ? v / total * 100 : 0;
+    return `<div class="item"><div class="top2"><span>${k}</span><b>${fmt(v)} · ${pct(p)}</b></div>
+     <div class="track"><div class="fill ${k === highlight ? "p" : cls}" style="width:${p}%"></div></div></div>`;
+  }).join("") + `<div class="tot"><span>Разом</span><span>${fmt(total)}</span></div>`;
+}
+
+function structure() {
+  const m = M[sel];
+  $("#structTitle").textContent = "Структура: " + m.label;
+  $("#incomeList").innerHTML = bars(m.inc, m.revenue, "", "");
+  $("#expList").innerHTML = bars(m.exp, m.expenses, "v", "Оренда приміщення");
+}
+
+function breakeven() {
+  const m = M[sel];
+  if (!isFinite(m.beRevenue) || m.beRevenue < 0) { $("#breakeven").innerHTML = '<p class="mut">Недостатньо даних для розрахунку.</p>'; return; }
+  const gap = m.revenue - m.beRevenue, top = Math.max(m.revenue, m.beRevenue, 1);
+  $("#breakeven").innerHTML = `
+    <div class="item"><div class="top2"><span>Постійні витрати (оренда, адміністратор, комунальні, маркетинг, інвентар)</span><b>${fmt(m.fixed)}</b></div></div>
+    <div class="item"><div class="top2"><span>Точка беззбитковості</span><b class="lime">${fmt(m.beRevenue)}</b></div>
+      <div class="track"><div class="fill" style="width:${m.beRevenue / top * 100}%"></div></div></div>
+    <div class="item"><div class="top2"><span>Фактичний дохід</span><b>${fmt(m.revenue)}</b></div>
+      <div class="track"><div class="fill v" style="width:${m.revenue / top * 100}%"></div></div></div>
+    <div class="tot"><span>${gap >= 0 ? "Запас міцності" : "Не вистачає до нуля"}</span>
+      <span class="${gap >= 0 ? "lime" : "red"}">${fmt(Math.abs(gap))}${m.revenue ? " · " + pct(Math.abs(gap) / m.revenue * 100) : ""}</span></div>`;
+}
+
+function table() {
+  const sum = k => M.reduce((s, m) => s + m[k], 0);
+  const rev = sum("revenue"), prof = sum("profit");
+  $("#table").innerHTML = `<thead><tr><th>Місяць</th><th>Дохід</th><th>Витрати</th><th>Прибуток</th><th>Рентабельність</th></tr></thead><tbody>` +
+    M.map((m, i) => `<tr class="${i === sel ? "sel" : ""}"><td>${m.label}</td><td>${fmt(m.revenue)}</td><td>${fmt(m.expenses)}</td>
+      <td class="${m.profit >= 0 ? "lime" : "red"}">${fmt(m.profit)}</td><td>${pct(m.margin)}</td></tr>`).join("") +
+    `</tbody><tfoot><tr><td>Разом</td><td>${fmt(rev)}</td><td>${fmt(sum("expenses"))}</td>
+      <td class="${prof >= 0 ? "lime" : "red"}">${fmt(prof)}</td><td>${rev ? pct(prof / rev * 100) : "—"}</td></tr></tfoot>`;
+}
+
+function renderAll() {
+  const has = M.length > 0;
+  $("#content").hidden = !has;
+  $("#emptyBox").hidden = has;
+  document.querySelector(".bar").hidden = !has;
+  if (!has) return;
+  $("#month").innerHTML = M.map((m, i) => `<option value="${i}">${m.label}</option>`).join("");
+  $("#month").value = sel;
+  kpis(); chartMain(); chartProfit(); structure(); breakeven(); table();
+}
+
+/* =====================================================================
+   ФОРМА ВНЕСЕННЯ ДАНИХ
+   ===================================================================== */
+const field = (id, label) => `<div><label for="${id}">${label}</label><input id="${id}" type="number" min="0" step="100" inputmode="numeric" placeholder="0"></div>`;
+$("#incFields").innerHTML = INCOME.map((k, i) => field("i" + i, k)).join("");
+$("#expFields").innerHTML = EXPENSE.map(([id, k]) => field("e_" + id, k)).join("");
+
+const say = (t, err) => { const m = $("#msg"); m.textContent = t; m.className = "msg" + (err ? " err" : ""); };
+const val = id => Math.max(0, Number($("#" + id).value) || 0);
+
+function fillForm(key) {
+  const r = state.records.find(x => x.key === key);
+  const base = r || state.records[state.records.length - 1];   // нові місяці беруть постійні витрати з останнього
+  INCOME.forEach((_, i) => $("#i" + i).value = r ? r.inc[i] : "");
+  EXPENSE.forEach(([id]) => $("#e_" + id).value = base ? base[id] : "");
+  $("#btnDelete").hidden = !r;
+}
+function fillSettings() {
+  $("#sGroup").value = state.settings.group;
+  $("#sIndiv").value = state.settings.indiv;
+  $("#sTax").value = state.settings.tax;
+}
+
+$("#fMonth").addEventListener("change", e => { fillForm(e.target.value); say(""); });
+
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const key = $("#fMonth").value;
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(key)) return say("Оберіть місяць.", true);
+  const rec = { key, inc: INCOME.map((_, i) => val("i" + i)) };
+  EXPENSE.forEach(([id]) => rec[id] = val("e_" + id));
+  if (rec.inc.every(v => v === 0)) return say("Внесіть хоча б один дохід.", true);
+
+  state.settings = { group: val("sGroup"), indiv: val("sIndiv"), tax: val("sTax") };
+  const i = state.records.findIndex(r => r.key === key);
+  if (i >= 0) state.records[i] = rec; else state.records.push(rec);
+  state.records.sort((a, b) => a.key.localeCompare(b.key));
+
+  const ok = save();
+  recalc(key); renderAll(); $("#btnDelete").hidden = false;
+  say(ok ? "Збережено в цьому браузері." : "Не вдалося зберегти в браузері. Скачайте копію (JSON).", !ok);
+});
+
+$("#btnDelete").addEventListener("click", () => {
+  const key = $("#fMonth").value;
+  if (!confirm("Видалити дані за " + labelOf(key) + "?")) return;
+  state.records = state.records.filter(r => r.key !== key);
+  save(); recalc(); renderAll(); fillForm(key); say("Місяць видалено.");
+});
+
+$("#btnClear").addEventListener("click", () => {
+  if (!confirm("Видалити всі дані? Дію не можна скасувати.")) return;
+  state.records = []; save(); recalc(); renderAll(); fillForm($("#fMonth").value); say("Усі дані видалено.");
+});
+
+$("#btnExport").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "vibe-stats-" + new Date().toISOString().slice(0, 10) + ".json";
+  a.click(); URL.revokeObjectURL(a.href);
+});
+
+$("#btnImport").addEventListener("click", () => $("#fileIn").click());
+$("#fileIn").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const d = normalize(JSON.parse(rd.result));
+      if (!d.records.length) return say("У файлі немає даних.", true);
+      state = d; save(); recalc(); renderAll(); fillSettings(); fillForm($("#fMonth").value);
+      say("Дані завантажено з файлу.");
+    } catch (err) { say("Не вдалося прочитати файл.", true); }
+  };
+  rd.readAsText(f); e.target.value = "";
+});
+
+/* Клік по місяцю на графіку */
+document.addEventListener("click", e => {
+  const g = e.target.closest(".col");
+  if (g) { sel = +g.dataset.i; renderAll(); }
+});
+$("#month").addEventListener("change", e => { sel = +e.target.value; renderAll(); });
+
+/* =====================================================================
+   СТАРТ
+   ===================================================================== */
+if (LOGO) {
+  $("#logo").classList.remove("text");
+  $("#logo").innerHTML = `<img src="${LOGO}" alt="Vibe Studio" onerror="this.parentNode.classList.add('text');this.parentNode.innerHTML='Vibe<span>STUDIO</span>'">`;
+}
+$("#year").textContent = new Date().getFullYear();
+load();
+recalc();
+renderAll();
+fillSettings();
+const last = state.records[state.records.length - 1];
+const now = new Date(), nowKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
+$("#fMonth").value = nowKey;
+fillForm(nowKey);
+</script>
+</body>
+</html>
